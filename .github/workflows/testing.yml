@@ -9,14 +9,14 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     env:
-      POSTGRES_URL=postgres://default:17fjysVETxXG@ep-quiet-morning-a4thgdtc-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require
-      POSTGRES_PRISMA_URL=postgres://default:17fjysVETxXG@ep-quiet-morning-a4thgdtc-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15
-      POSTGRES_URL_NO_SSL=postgres://default:17fjysVETxXG@ep-quiet-morning-a4thgdtc-pooler.us-east-1.aws.neon.tech:5432/verceldb
-      POSTGRES_URL_NON_POOLING=postgres://default:17fjysVETxXG@ep-quiet-morning-a4thgdtc.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require
-      POSTGRES_USER=default
-      POSTGRES_HOST=ep-quiet-morning-a4thgdtc-pooler.us-east-1.aws.neon.tech
-      POSTGRES_PASSWORD=17fjysVETxXG
-      POSTGRES_DATABASE=verceldb
+      POSTGRES_URL: postgres://default:17fjysVETxXG@ep-quiet-morning-a4thgdtc-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require
+      POSTGRES_PRISMA_URL: postgres://default:17fjysVETxXG@ep-quiet-morning-a4thgdtc-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15
+      POSTGRES_URL_NO_SSL: postgres://default:17fjysVETxXG@ep-quiet-morning-a4thgdtc-pooler.us-east-1.aws.neon.tech:5432/verceldb
+      POSTGRES_URL_NON_POOLING: postgres://default:17fjysVETxXG@ep-quiet-morning-a4thgdtc.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require
+      POSTGRES_USER: default
+      POSTGRES_HOST: ep-quiet-morning-a4thgdtc-pooler.us-east-1.aws.neon.tech
+      POSTGRES_PASSWORD: 17fjysVETxXG
+      POSTGRES_DATABASE: verceldb
 
     steps:
       - name: Checkout
