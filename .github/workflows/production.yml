@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2`S`
+        uses: actions/checkout@v2
 
       - name: Login to Test Azure Registry
         if: ${{ env.DESIRED_ENVIRONMENT == env.TEST_ENVIRONMENT }}
