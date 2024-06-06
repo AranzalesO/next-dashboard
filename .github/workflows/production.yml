@@ -5,43 +5,37 @@ on:
     branches:
       - master
 
-env:
-  DESIRED_ENVIRONMENT: test
-  TEST_ENVIRONMENT: test
-  PRODUCTION_ENVIRONMENT: production
-      
-
 jobs:
-  build:
+  terraform:
+    name: "Terraform"
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    defaults:
+      run:
+        working-directory: IaC
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Login to Test Azure Registry
-        if: ${{ env.DESIRED_ENVIRONMENT == env.TEST_ENVIRONMENT }}
-        uses: azure/docker-login@v1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
         with:
-          login-server: testdv2.azurecr.io
-          username: ${{ secrets.USER_TEST }}
-          password: ${{ secrets.PASSWORD_TEST }}
+          terraform_version: 1.0.1
+          terraform_wrapper: false
 
-      - name: Push to Test Azure Registry
-        if: ${{ env.DESIRED_ENVIRONMENT == env.TEST_ENVIRONMENT }}
-        run: |
-          docker build . -t testdv2.azurecr.io/test:latest
-          docker push testdv2.azurecr.io/test:latest
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
 
-      - name: Login to Production Azure Registry
-        if: ${{ env.DESIRED_ENVIRONMENT == env.PRODUCTION_ENVIRONMENT }}
-        uses: azure/docker-login@v1
-        with:
-          login-server: productiondv2.azurecr.io
-          username: ${{ secrets.USER_PRODUCCION }}
-          password: ${{ secrets.PASSWORD_PRODUCCION }}
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
-      - name: Push to Production Azure Registry
-        if: ${{ env.DESIRED_ENVIRONMENT == env.PRODUCTION_ENVIRONMENT }}
-        run: |
-          docker build . -t productiondv2.azurecr.io/prod:latest
-          docker push productiondv2.azurecr.io/prod:latest
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply

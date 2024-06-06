@@ -44,3 +44,15 @@ jobs:
           command: npm run test:e2e
           start: npm run dev
           wait-on: http://localhost:3000
+
+      # - name: Terraform Init
+      #   run: terraform init
+
+      # - name: Terraform Plan
+      #   run: terraform plan
+
+      # - name: Terraform Apply
+      #   run: terraform apply
+
+      # - name: Terraform Destroy
+      #   run: terraform destroy
